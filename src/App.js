@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
+import FormControl from 'react-bootstrap/FormControl';
+import InputGroup from 'react-bootstrap/InputGroup';
 import ListGroup from 'react-bootstrap/ListGroup';
 import './App.css';
 import { adicionarTarefa, listarTarefas } from './services/services';
@@ -11,7 +13,7 @@ function App() {
   const [tarefasAdicionadas, setTarefasAdicionadas] = useState([])
 
   const getTasks = (limit = 10) => {
-    listarTarefas(limit).then((tasks) => setTarefas([...tasks, tarefasAdicionadas]))
+    listarTarefas(limit).then((tasks) => setTarefas([...tasks, ...tarefasAdicionadas]))
   }
 
   const setTasks = (task) => {
@@ -20,13 +22,15 @@ function App() {
       title: task,
       completed: false
     }
-    adicionarTarefa(newTask).then((newtasks) => {setTarefasAdicionadas([...tarefasAdicionadas, newTask])
-    console.log(newtasks)})
+    adicionarTarefa(newTask).then((newtasks) => {
+      setTarefasAdicionadas([...tarefasAdicionadas, newTask])
+    })
     setTarefa('')
-    console.log(tarefasAdicionadas)
-    getTasks()
-    
   }
+
+  useEffect(() => {
+    getTasks()
+  }, [tarefas])
 
 
   return (
@@ -40,7 +44,7 @@ function App() {
             <ListGroup.Item variant="warning">Nenhuma tarefa</ListGroup.Item>}
 
         </ListGroup>
-       {/* <InputGroup className="mb-3">
+        <InputGroup className="mb-3">
           <FormControl
             placeholder="Coloque uma tarefa"
             aria-label="Campo de texto: coloque uma tarefa"
@@ -54,7 +58,7 @@ function App() {
           </Button>
         </InputGroup>
 
-        <ListGroup>
+        {/*<ListGroup>
           {tarefas.length ?
             tarefas.map((usuario) => (
               <ListGroup.Item key={Math.random()}>{usuario.title}</ListGroup.Item>
