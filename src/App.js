@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -58,14 +58,6 @@ function App() {
           </Button>
         </InputGroup>
 
-        {/*<ListGroup>
-          {tarefas.length ?
-            tarefas.map((usuario) => (
-              <ListGroup.Item key={Math.random()}>{usuario.title}</ListGroup.Item>
-            )) :
-            <ListGroup.Item variant="info">Nenhum usuário</ListGroup.Item>}
-
-        </ListGroup> */}
         <Button onClick={() => getTasks()} variant="primary">Listar Tarefas</Button>
       </div>
     </div>
