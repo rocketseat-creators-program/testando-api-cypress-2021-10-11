@@ -1,7 +1,7 @@
 import api from './api';
 
-const listarUsuarios = async () => {
-  const response = await api.get('/users');
+const listarTarefas = async (limit = 20) => {
+  const response = await api.get(`/todos?_limit=${limit}`);
   const { data } = await response;
   return data;
 }
@@ -17,6 +17,6 @@ const adicionarTarefa = async ({ tarefa }) => {
 }
 
 export {
-  listarUsuarios,
+  listarTarefas,
   adicionarTarefa
 };
